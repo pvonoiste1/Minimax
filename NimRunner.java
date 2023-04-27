@@ -1,12 +1,9 @@
 import java.util.*;
 public class NimRunner{
-    public static void main(String[] args){
 
-    }
-
-    public static boolean runGame(){
-        //hard code the number of pieces
-        int pieces = 6;
+    public static boolean runGame(int pieces){
+        //hard code the number of pieces through user input
+        //Optional: change to make an array (ex. 1,3,5,7)
         //start xWins with true
         boolean xWins = true;
         //returning the value of who won
@@ -20,6 +17,7 @@ public class NimRunner{
                 break; 
             }
         }
+        //return whethe or not our player, player X, wins the game
         return xWins; 
     }
 
@@ -36,10 +34,10 @@ public class NimRunner{
     }
 
     public static int minimax(int state, boolean myTurn){
-        if (state == 0 && myTurn){ //base case 1
+        if (state == 0 && myTurn){ //base case #1 (its your turn and there are no pieces)-you won
             return 1;
         }
-        else if(state == 0 && !myTurn){ //base case 2
+        else if(state == 0 && !myTurn){ //base case #2 (its not your turn and there are no pieces)-you lost
             return -1;
         }
         else{
@@ -75,18 +73,20 @@ public class NimRunner{
         //returns how many pieces is optimal to take
         int score = 0; //hold the score given by each move
         for(int i=1; i<4; i++){
-            if(i<= state){
-                score = minimax(state-1, myTurn); //recursive element, call minimax to test that move and to save the cosre
+            if(i<=state){ 
+                score = minimax(state-i, !myTurn); //recursive element, call minimax to test that move and to save the cosre
                 if(myTurn && score == 1){
-                    return i;
+                    return i; //exit once you have found the move that is equal to 1
                 }
-                else if(!myTurn && score == 1){
+                else if(!myTurn && score == -1){ //exit once you have the move that is equal to -1
                     return i;
                 }
             }
         }
-        //if you never get 1 or -1, return a random move
-        return 3;
+        //if you never get 1 or -1, return only taking one move
+        return 1;
     }
+
+    //Optional: USER INPUT
 
 }
