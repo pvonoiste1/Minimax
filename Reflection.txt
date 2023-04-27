@@ -1,12 +1,17 @@
-1. Some time and space efficiency limitations of my current algorithm is that my function runGame which is the master and runner function of the NimRunner game calls all of the subsequent helper methods,
-like bestMove, getMove and minimax on all of the possible states in the game tree. While the code works for a small number of pieces in the pile, adding more pieces will take longer to execute and to return a final boolean
-of the winner becuase of the rescursive element. While minimax is incredibly helpful and efficient in determining the max or min possibilities of winning the game, because of the recursion it can be time consuming for larger piles.
+1. Some time and space efficiency limitations of my current algorithm is that my function runGame, which is the master and runner function of the NimRunner game, calls all of the subsequent helper methods,
+like bestMove, getMove, and minimax on all of the possible states in the game tree. While the code works for a small number of pieces in a pile, adding more details will take longer to execute and to return a final boolean. Because of the recursive element, minimax must call each sub-step of the game tree to return the overall best move, which becomes more time-consuming as more pieces are added. While minimax is incredibly helpful and efficient in determining the max or min possibilities of winning the game, because of the recursion, it can be time-consuming for larger piles.
 
-2. No, the bot will not win every game of simple nim. This is because 
+The branching factor of the nim game, adding more pieces and hence more possibilities to winning, creates another dimension and adds more complexity. If you continue to add more pieces,
+there are more possibilities and ways a player can win, taking longer for the code to execute overall.
 
-3. If we changed the rules so that the player who takes the last pieces wins instead of loses, I would change the base case of the minimax algorithm. If there were 0 pieces and it was myTurn, this would mean that I had lost, so I would return -1 instead of 1. Similarly, if it was not
-was my turn and there was one piece left, I would return 1. Then because the bestMove algorithm chooses the higher of the two scores, it would return the move in which the player takes the last piece, resulting in a 1, compared to our original in which this scenario results in a -1.
+2. No, the bot will not win every game of simple nim because if the bot is not starting first, then you can't guarantee it will win. Although the minimax algorithm game maximizes the chances of winning and will choose the most strategic move to result
+in a win and minimizes the other player's chances of winning, if the player does not go first, the it can't guarantee that player X will win. Minimax algorithm also assumes that the player will act in their best interest and choose the move that is most likely to result in a win for them 
+and a loss for the other player.
 
-4. One non-Nim game that I would expect my algorithm would not work well for is chess. The game tree in chess is more complicated than the game tree possibility that we were working with in simple nim. 
-Becuase there are multiple different pieces in Chess, like the queen, pawns, bishops and rooks, which each have their own set of moves and spaces that they can move, the simple nim algorithm would not suffice for the level of complexity.
-Additionally, the board and the different qualifications to make valid moves is more complicated compared to the rules of the Nim game, as the board is different. It becomes more difficult to map out all of the possible choices and the next moves that your opponent will make with more dimensions of choice in Chess compared to simple Nim.
+3. If we changed the rules so that the player who takes the last pieces wins instead of loses, I would change the base case of the minimax algorithm. For example, if there were 0 pieces and it was myTurn, this would mean that I had lost so that I would return -1 instead of 1. Similarly, if it was not
+ my turn and there was one piece left, I would return 1. Then because the bestMove algorithm chooses the higher of the two scores, it would return the move in which the player takes the last piece, resulting in a 1, compared to our original in which this scenario results in a -1.
+Because the base case determines what value is returned in minimax, either a 1 or a -1, altering the return value based on the remaining number of pieces would optimize the chances of being the player to take the last piece compared to previously.
+
+4. One non-Nim game that I expect my algorithm will not work well for is tic-tac-toe because it is not a zero-sum game, and one of the qualifications for the minimax algorithm is that it must be two-player, zero-sum, and alternating.
+
+While tic tac toe fits the qualifications of alternating moves and two players because the players can tie, it would only work if there are games that do not necessarily result in a win or lose for player X.
